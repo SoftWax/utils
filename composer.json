@@ -1,0 +1,52 @@
+{
+    "name": "softwax/utils",
+    "description": "Utils and helpers used in SoftWax projects",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "SoftWax",
+            "homepage": "https://github.com/orgs/SoftWax/people"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "webmozart/assert": "^1.11"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan-deprecation-rules": "^1.2",
+        "phpstan/phpstan-phpunit": "^1.4",
+        "phpstan/phpstan-strict-rules": "^1.6",
+        "phpunit/phpunit": "^11.1",
+        "softwax/coding-standard": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SoftWax\\Utils\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SoftWaxTests\\Utils\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "check": [
+            "@check:composer",
+            "@check:cs",
+            "@check:stan",
+            "@check:phpunit"
+        ],
+        "check:composer": "composer validate --no-check-all --strict --no-interaction",
+        "check:cs": "vendor/bin/phpcs",
+        "check:phpunit": "vendor/bin/phpunit",
+        "check:stan": "vendor/bin/phpstan analyze"
+    }
+}
