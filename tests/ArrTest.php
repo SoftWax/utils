@@ -62,4 +62,86 @@ class ArrTest extends TestCase
         yield [[false], [null, false]];
         yield [['null', ''], ['null', '']];
     }
+
+    #[DataProvider('mapDataProvider')]
+    public function testMap(iterable $input, \Closure $function, array $expectedOutput): void
+    {
+        /** @phpstan-ignore-next-line */
+        self::assertSame($expectedOutput, Arr::map($input, $function));
+    }
+
+    public static function mapDataProvider(): iterable
+    {
+        yield [
+            [1, 2, 3],
+            static function (int $v): int {
+                return $v;
+            },
+            [1, 2, 3],
+        ];
+
+        yield [
+            [1, 2, 3],
+            static function (int $v): int {
+                return $v * 2;
+            },
+            [2, 4, 6],
+        ];
+
+        yield [
+            [1, 2, 3],
+            static function (int $v): string {
+                return (string)$v;
+            },
+            ['1', '2', '3'],
+        ];
+
+        yield [
+            [10 => 1, 2, 3],
+            static function (int $v): string {
+                return (string)$v;
+            },
+            ['1', '2', '3'],
+        ];
+
+        yield [
+            [],
+            static function (int $v): string {
+                return (string)$v;
+            },
+            [],
+        ];
+
+        yield [
+            new \ArrayIterator([1, 2, 3]),
+            static function (int $v): int {
+                return $v;
+            },
+            [1, 2, 3],
+        ];
+
+        yield [
+            new \ArrayIterator([1, 2, 3]),
+            static function (int $v): int {
+                return $v * 2;
+            },
+            [2, 4, 6],
+        ];
+
+        yield [
+            new \ArrayIterator([1, 2, 3]),
+            static function (int $v): string {
+                return (string)$v;
+            },
+            ['1', '2', '3'],
+        ];
+
+        yield [
+            new \ArrayIterator([]),
+            static function (int $v): string {
+                return (string)$v;
+            },
+            [],
+        ];
+    }
 }
