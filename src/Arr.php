@@ -69,4 +69,33 @@ final readonly class Arr
             },
         );
     }
+
+    /**
+     * @template T
+     * @template K
+     *
+     * @param iterable<T> $iterable Iterable to be mapped over
+     * @param \Closure(T): K $function
+     * @return ($iterable is non-empty-array ? non-empty-list<K> : list<K>)
+     */
+    public static function map(iterable $iterable, \Closure $function): array
+    {
+        if (\is_array($iterable)) {
+            return \array_values(
+                \array_map(
+                    static function ($v) use ($function) {
+                        return $function($v);
+                    },
+                    $iterable,
+                ),
+            );
+        }
+
+        $result = [];
+        foreach ($iterable as $value) {
+            $result[] = $function($value);
+        }
+
+        return $result;
+    }
 }
