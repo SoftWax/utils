@@ -9,12 +9,18 @@ final readonly class Json
     /**
      * @throws \JsonException
      */
-    public static function encode(mixed $value): string
+    public static function encode(mixed $value, bool $pretty = false): string
     {
-        return \json_encode(
-            $value,
-            \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRESERVE_ZERO_FRACTION | \JSON_THROW_ON_ERROR,
-        );
+        $flags = \JSON_UNESCAPED_UNICODE
+            | \JSON_UNESCAPED_SLASHES
+            | \JSON_PRESERVE_ZERO_FRACTION
+            | \JSON_THROW_ON_ERROR;
+
+        if ($pretty) {
+            $flags |= \JSON_PRETTY_PRINT;
+        }
+
+        return \json_encode($value, $flags);
     }
 
     /**

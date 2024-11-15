@@ -17,6 +17,22 @@ class JsonTest extends TestCase
         );
     }
 
+    public function testSuccessfullyEncodesValueToPrettyJson(): void
+    {
+        self::assertSame(
+            <<<'JSON'
+{
+    "test": 123,
+    "o": [
+        "value"
+    ],
+    "float": 12.0
+}
+JSON,
+            Json::encode(['test' => 123, 'o' => ['value'], 'float' => 12.0], true),
+        );
+    }
+
     public function testThrowsExceptionOnFailedJsonEncoding(): void
     {
         $this->expectException(\JsonException::class);
