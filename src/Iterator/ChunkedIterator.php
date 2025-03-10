@@ -8,13 +8,13 @@ use SoftWax\Utils\Assert;
 
 /**
  * @template T
- * @implements \IteratorAggregate<list<T>>
+ * @implements \IteratorAggregate<non-empty-list<T>>
  */
 final readonly class ChunkedIterator implements \IteratorAggregate
 {
     /**
      * @param iterable<T> $iterator
-     * @param int<1, max> $chunkSize
+     * @param positive-int $chunkSize
      */
     public function __construct(
         private iterable $iterator,
@@ -39,7 +39,7 @@ final readonly class ChunkedIterator implements \IteratorAggregate
             }
         }
 
-        if (\count($chunk) !== 0) {
+        if ($chunk !== []) {
             yield $chunk;
         }
     }
