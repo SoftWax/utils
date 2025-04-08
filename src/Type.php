@@ -14,8 +14,8 @@ final readonly class Type
     public static function coerceNonEmptyStringOrNull(mixed $value): ?string
     {
         $value = match (true) {
-            $value instanceof \Stringable => \trim($value->__toString()),
-            \is_string($value) => \trim($value),
+            $value instanceof \Stringable => \mb_trim($value->__toString()),
+            \is_string($value) => \mb_trim($value),
             default => $value,
         };
 
