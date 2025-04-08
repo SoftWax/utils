@@ -54,7 +54,7 @@ final readonly class CamelCaseKeysModifier implements \IteratorAggregate
 
     private function camelCaseKeys(string $key): string
     {
-        return \lcfirst(\str_replace([' ', '_', '-'], '', \ucwords($key, ' _-')));
+        return \mb_lcfirst(\str_replace([' ', '_', '-'], '', \ucwords($key, ' _-')));
     }
 
     /**
