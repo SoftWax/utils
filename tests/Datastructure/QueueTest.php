@@ -10,6 +10,20 @@ use SoftWax\Utils\Datastructure\Queue;
 
 class QueueTest extends TestCase
 {
+    public function testDefaultBehaviour(): void
+    {
+        $queue1 = new Queue();
+        $queue1->enqueue('a');
+        $queue1->enqueue('b');
+        $queue1->enqueue('c');
+        $queue1->enqueue('d');
+        self::assertSame(['a', 'b'], $queue1->dequeueFew(2));
+
+        $queue2 = new Queue();
+        $queue2->enqueueAll($queue1->dequeueAll());
+        self::assertSame(['c', 'd'], $queue2->dequeueFew(2));
+    }
+
     #[DataProvider('dequeueAllDataProvider')]
     public function testDequeueAll(
         array $input,
