@@ -12,6 +12,9 @@ use PHPUnit\Framework\Constraint\IsIdentical;
 // @see: https://stackoverflow.com/questions/21861825/quick-way-to-find-the-largest-array-in-a-multidimensional-array
 trait ConsecutiveParamsTrait
 {
+    /**
+     * @return list<Callback>
+     */
     public function consecutiveParams(array ...$args): array
     {
         $callbacks = [];
