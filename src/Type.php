@@ -21,4 +21,15 @@ final readonly class Type
 
         return $value !== '' && \is_string($value) ? $value : null;
     }
+
+    /**
+     * @return non-empty-array|null
+     */
+    public static function coerceNonEmptyArrayOrNull(mixed $value): ?array
+    {
+        return match (true) {
+            \is_array($value) && $value !== [] => $value,
+            default => null,
+        };
+    }
 }
